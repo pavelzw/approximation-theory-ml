@@ -1,0 +1,25 @@
+{ % group this
+\footnotesize\sffamily
+\newdimen\addresswidth
+\addresswidth=\textwidth
+\advance\addresswidth by -3cm
+\noindent\begin{tabular}{@{}c@{}c@{}}
+\parbox{\addresswidth}{Karlsruhe Institute for Technology\\Institute for Theoretical Informatics\\Research Group Cryptography and IT Security} & \parbox{3cm}{\includegraphics[width=3cm]{./logos/kit-en.pdf}}
+\end{tabular}
+} % end of the group
+
+\vspace{\baselineskip}
+
+\begin{center}
+\makeatletter
+{\Large\bfseries\@title\\}
+\vspace{\baselineskip}
+{
+\@author\\
+\@subtitle{}\\
+\@date
+\makeatother
+}
+\end{center}
+
+\vspace{\baselineskip}

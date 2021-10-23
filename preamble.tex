@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make this compatible with pdflatex and lualatex, xelatex.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{ifxetex,ifluatex}
+\newif\ifxetexorluatex
+\ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
+\ifxetexorluatex
+  \usepackage{fontspec}
+  \usepackage{xltxtra} % Not that important nowa
+  % Font packages, and other xetex specific configuration here.
+\else
+  % Use utf8 as encoding.
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  % font packages
+  \usepackage{lmodern} % Better than default computer modern?
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of pdflatex/xelatex/lualatex specific configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[hmargin=2cm,vmargin=2.5cm]{geometry} % Set small margins for handout
+
+% BibTeX setup
+\usepackage[backend=bibtex, bibstyle=alphabetic, citestyle=alphabetic]{biblatex}
+\bibliography{references}
+
+\usepackage[english]{babel} % English
+% \usepackage[ngerman]{babel} % German
+
+\usepackage{enumitem} % Package for handling of lists
+\setlist{noitemsep}   % No separating whitespace between list items.
+
+% Standard packages for math-related things.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{graphicx} % to include graphics with \includegraphics[options]{imagefile}
+
+% Hyperref is great, but sometimes there are problems if packages are loaded before or after hyperref. Check the documentation.
+\usepackage{hyperref} % For PDF links, toc, etc.
+
+% Formatting of paragraphs
+\parindent 0cm                     % No intendation at the beginning of a paragraph
+\parskip1.5ex plus0.5ex minus0.5ex % Vertical space between two paragraphs
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem and style definitions (for amsthm). For details see
+% https://en.wikibooks.org/wiki/LaTeX/Theorems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{plain} % Usual style for theorems, etc.
+
+% All numbered with the same counter (theorem).
+% \newtheorem{theorem}{Theorem}[section] % This uses numbering SECTION.COUNT instead of COUNT. Useful in longer documents.
+\newtheorem{theorem}{Theorem} % Number linearly (no SECTION prefix).
+% Usage: \newtheorem{environmentname}[counter]{displayedtext}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{lemma*}{Lemma} % not numbered.
+
+\theoremstyle{definition} % Usual style definitions.
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % Usual style definitions.
+\newtheorem{remark}[theorem]{Remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\IN}{\mathbb{N}} % blackboard bold N for natural numbers
+\newcommand{\IR}{\mathbb{R}} % blackboard bold R for real numbers
+\newcommand{\IZ}{\mathbb{Z}} % blackboard bold Z for integers
+\newcommand{\IF}{\mathbb{F}} % blackboard bold F for fields
+\newcommand{\IG}{\mathbb{G}} % blackboard bold G for groups
+
+% feel free to add more commands here

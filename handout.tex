@@ -1,0 +1,215 @@
+\documentclass[11pt]{scrartcl}
+
+\include{preamble}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content begins here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Semester{WS 21/22}
+%\def\Semester{SS 2021}
+\def\Seminar{Mathematische Aspekte des maschinellen Lernens}
+\def\Title{Approximationstheorie} 
+\def\Author{Pavel Zwerschke} 
+\def\Date{19.11.2021} % The date of your presentation
+
+% Font
+\renewcommand{\familydefault}{\sfdefault}
+
+
+% Start of document
+\begin{document}
+
+\vspace*{-2cm}
+\begin{minipage}{3cm}
+%	\includegraphics[width=3cm]{./logos/kit-en.pdf} % English logo
+	\includegraphics[width=3cm]{./logos/kit-de.pdf} % German logo
+\end{minipage}\hspace*{0.2cm}~
+\begin{minipage}{14cm}{
+		\sffamily \Large{\Seminar} \hfill \Date \\ 
+		\Author \hfill \Semester
+}\end{minipage}
+\vspace{-0.5cm}
+\begin{center}
+	\huge \sffamily \Title
+\end{center}
+\vspace{-1cm}
+
+\section{A section}
+\label{sec:a-section}
+
+Some text in a section.
+
+\section*{An unnumbered section}
+
+This section, unlike section~\ref{sec:a-section} is not numbered.
+This is indicated by the ``*'', i.e., \verb|\section*| instead of \verb|\section|.
+Such ``starred'' and ``unstarred'' variants also exist for many environments (and commands).
+There are subsections, subsubsections and paragraphs (and subparagraphs) for more fine-grained subdivision.
+
+\subsection*{A subsection}
+
+Some text.
+
+\subsubsection*{A subsubsection}
+
+More text.
+
+\paragraph*{A paragraph}
+
+Even more text.
+
+
+\section{Important hint}
+
+If you don't know \LaTeX{}, how to use math mode, environment, and so on,
+a short tutorial/introduction will be more useful than this document.
+This document is only a reminder of some basic \LaTeX{} stuff.
+Not the absolute basics, and nothing advanced.
+
+Furthermore, use a \textbf{suitable editor}.
+This will make using \LaTeX{} \emph{much} easier.
+
+\section{Basic usage of \LaTeX}
+\label{sec:math-and-env}
+
+
+\subsection{{\texttt{\textbackslash{}newcommand} for shorthands}}
+\label{subsec:newcommand}
+
+Using \verb|\newcommand{\cmdname}{output}| you can define shorthands,
+e.g., \verb|\IN| for natural numbers $\IN$, and so on.
+See the preamble.
+Much more than mere text insertion is possible.
+See (advanced) \LaTeX{} introductions.
+
+\subsection{Lists}
+\label{subsec:lists}
+
+Use \verb|itemize|, \verb|enumerate| or \verb|description| for lists.
+For example (itemize):
+\begin{itemize}
+	\item First item
+	\item Second item
+\end{itemize}
+
+
+\subsection{Math environments}
+\label{subsec:math-env}
+
+Use \emph{inline} math mode (i.e., tex code in \$'s) for inline math,
+e.g., $\lim_{x \to 1} e^{2 \pi i x} = 1$ or $\alpha \beta = \Gamma$.
+Use the \verb|equation*| environment (or \verb|\[| and \verb|\]|)
+for math in \emph{display} mode, e.g.,
+\begin{equation*}
+\lim_{x \to 1} e^{2 \pi i x} = 1.
+\end{equation*}
+If you use \verb|equation| you get numbered equations which you can reference to (see section~\ref{sec:references}).
+\begin{equation}
+\label{eq:eqn}
+|x| = \left\{
+\begin{array}{rl}
+-x &\mbox{ if $x<0$} \\
+x &\mbox{ otherwise}
+\end{array}
+\right.
+\end{equation}
+
+Proofs, Definition, Lemmata, Propositions, Theorems, Remarks, etc, have their own environments.
+Environments can be be changed/redefined and new ones can be defined.
+
+\begin{definition}[Negligible function]
+	\label{def:negl}
+	Let $f \colon \IN \to \IR$ be a function.
+	If for any $k > 0$, it holds that $f(x) x^k \rightarrow 0$ for $x \to \infty$,
+	then we call $f$ \emph{negligible}.
+\end{definition}
+
+\begin{lemma}
+	$f(x) = 0$ is a negligible function.
+\end{lemma}
+
+\begin{proposition}
+	If $f$ and $g$ are negligible functions,
+	then $f + g$ is a negligible function.
+\end{proposition}
+
+The following theorem has a proof included.
+
+\begin{theorem}[The ring of negligible functions]
+	The set of negligible functions is closed under addition, subtraction and multiplication.
+\end{theorem}
+\begin{proof}
+	This is just an application of theorems about limits of series and induction.
+	For example, $0 = 0 + 0 = \lim_{x \to \infty} f(x)x^k + \lim_{x \to \infty} g(x)x^k = \lim_{x \to \infty} (f(x) + g(x))x^k$
+	and
+	\begin{equation*}
+	0 = 0 \cdot 0 = \lim_{x \to \infty} f(x) x^{k} \lim_{x \to \infty} f(x) g(x)) x^{k} = \lim_{x \to \infty} (f(x) g(x)) x^{2k}
+	\end{equation*}
+\end{proof}
+
+\begin{corollary}
+	Working with negligible functions is easy.
+\end{corollary}
+
+\begin{remark}
+	If $f$ is \emph{not} negligible,
+	this does \emph{not} imply that $|f(x)| \geq x^{-k}$ always.
+	This needs to hold for infinitely many $x \in \IN$ (and $k > 0$).
+	E.g., $f(x) = 1 - (-1)^x$ is not negligible.
+\end{remark}
+
+There are a lot more useful things for math layout,
+e.g., \verb|align| and \verb|aligned| environments for equations, and so on.
+
+\subsection{References}
+\label{sec:references}
+
+To refer to a section, or any other ``referrable'' object, use the ``ref'' command.
+For example: Section~\ref{sec:a-section} or Definition~\ref{def:negl} or Eq.~(\ref{eq:eqn}).
+The tilde \verb|~| is an ``unbreakable space''.
+(There are more advanced ways to do this, which are especially useful for longer documents.
+For example the ``cleveref'' package.)
+
+
+\subsection{Literature and BibTeX}
+\label{subsec:literature}
+
+To refer to literature, use BibTeX (which needs a bib-file) and run it (on the main document).
+The bibfile is set by \verb|\bibliography{FILENAME}| in the preamble.
+The literature inserted by the \verb|\printbibliography{}| command. (See the end of the document).
+A good source of (sample) bibfiles is \url{https://dblp.uni-trier.de}.
+Use \verb|\cite{}| (e.g., \cite{DH76} or \cite{RSA78}) or variants (see Section~\ref{subsec:packages}).
+
+
+\subsection{Packages and the internet}
+\label{subsec:packages}
+
+There is a huge supply of useful packages.
+For almost every problem, there's a package to solve it.
+Just use the internet to find them.
+(Special mention: TikZ, cleveref, cryptocode)
+
+Reading some short introduction/tutorial on \LaTeX{} is also recommended.
+Because this document only scratches the surface:
+It does not have tables, pictures, splitting the document into multiple files, and so on.
+Good starting points are:
+Search engines, \url{https://en.wikibooks.org/wiki/LaTeX}, \url{https://tex.stackexchange.com}
+
+
+
+\subsection{Miscellaneous}
+\label{subsec:misc}
+
+To start a new paragraph, use either an empty line in the source tex file or the command \verb|\par|.
+
+Footnotes work via the \verb|footnote| command.\footnote{This is a footnote.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content ends here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography{}
+\end{document}
