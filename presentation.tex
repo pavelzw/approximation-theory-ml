@@ -9,8 +9,43 @@
 \institute{Karlsruher Institut für Technologie}
 \titlegraphic{\hfill\includegraphics[height=1.5cm]{logos/kit-de}}
 
-\usepackage[style=authoryear, maxcitenames=2, bibencoding=inputenc]{biblatex}
-\bibliography{references.bib}
+% BibTeX setup
+\usepackage[backend=bibtex, bibstyle=alphabetic, citestyle=alphabetic]{biblatex}
+\bibliography{references}
+
+% \usepackage[english]{babel} % English
+\usepackage[ngerman]{babel} % German
+
+% Standard packages for math-related things.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+\usepackage{graphicx} % to include graphics with \includegraphics[options]{imagefile}
+
+% \theoremstyle{plain} % Usual style for theorems, etc.
+% 
+% % All numbered with the same counter (theorem).
+% % \newtheorem{theorem}{Theorem}[section] % This uses numbering SECTION.COUNT instead of COUNT. Useful in longer documents.
+% \newtheorem{theorem}{Theorem} % Number linearly (no SECTION prefix).
+% % Usage: \newtheorem{environmentname}[counter]{displayedtext}
+\newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem*{lemma*}{Lemma} % not numbered.
+% 
+% \theoremstyle{definition} % Usual style definitions.
+% \newtheorem{definition}[theorem]{Definition}
+% 
+% \theoremstyle{remark} % Usual style definitions.
+% \newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}} % blackboard bold N for natural numbers
+\newcommand{\R}{\mathbb{R}} % blackboard bold R for real numbers
+\newcommand{\Z}{\mathbb{Z}} % blackboard bold Z for integers
+
+\newcommand{\set}[1]{\{#1\}}
 
 \begin{document}
 
@@ -21,8 +56,142 @@
     \tableofcontents%[hideallsubsections]
 \end{frame}
 
-\begin{frame}{Einführung}
-    
+\section{Definitionen}
+
+\begin{frame}{ReLU Netzwerk}
+    \begin{definition}[ReLU Netzwerk]
+        Sei \(L \in \N\) und \(N_0, N_1, \ldots, N_L \in \N\). Ein 
+        \textit{ReLU neuronales Netz} \(\Phi\) ist eine Abbildung 
+        \(\Phi: \R^{N_0} \rightarrow \R^{N_L}\), die durch 
+        \[ \Phi = \begin{cases}
+            W_1, & L = 1, \\
+            W_L \circ \rho \circ \cdots \circ \rho \circ W_1, & L \geq 2
+        \end{cases} \]
+        gegeben ist. Hierbei ist für \(l\in \set{1,\ldots, L}\) \(W_l : \R^{N_{l-1}} \rightarrow \R^{N_l}, W_l(x) = A_l x + b_l\) 
+        the jeweilige affine Transformation und \(\rho: \R \rightarrow \R\), \(\rho(x) := \max\set{0, x}\) 
+        die ReLU-Funktion (komponentenweise).
+
+        Die Menge aller ReLU Netzwerke mit Input-Dimension \(N_0 = d\) und Output-Dimension \(N_L = d'\) 
+        definieren wir als \(\mathcal{N}_{d,d'}\).
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Eigenschaften eines ReLU Netzwerks}
+    \begin{definition}[Eigenschaften eines ReLU Netzwerks]
+        \begin{description}
+            \item[Konnektivität] \(\mathcal{M}(\Phi)\) ist die Anzahl der nicht null Einträge in den Matrizen \(A_1, \ldots, A_L\) 
+            sowie Bias Vektoren \(b_1, \ldots, b_L\),
+            \item[Tiefe] \(\mathcal{L}(\Phi) := L\),
+            \item[Breite] \(\mathcal{W}(\Phi) := \max_{l=0,\ldots, L} N_l\),
+            \item[Gewicht] \(\mathcal{B}(\Phi) := \max_{l=1,\ldots, L} \max\set{||A_l ||_\infty, ||b_l||_\infty}\).
+        \end{description}
+    \end{definition}
+    TODO: überhaupt benötigt? Weight magnitude - Gewicht richtig übersetzt?
+\end{frame}
+
+\begin{frame}{Beispiel ReLU Netzwerk}
+    Beispiel mit drei layern und dann Konnektivität, Tiefe, Breite, Gewicht angeben (S. 5)
+\end{frame}
+
+\section{Approximationen}
+
+\begin{frame}{Zielsetzung}
+    Ziel: Approximation verschiedener Funktionsklassen durch ReLU Netzwerke
+
+    \begin{center}
+        Quadrierfunktion \\ \pause
+        \(\downarrow\) \\
+        Multiplikationsfunktion \\ \pause
+        \(\downarrow\) \\
+        Polynome \\ \pause
+        \(\downarrow\) \\
+        Glatte Funktionen \\ \pause
+        \(\downarrow\) \\
+        Trigonometrische Funktionen
+    \end{center}
+\end{frame}
+
+\subsection{Quadrierfunktion}
+
+\begin{frame}{Quadrierfunktion}
+    \begin{proposition} % iii.2
+        Es existiert eine Konstante \(C>0\), sodass für alle \(\varepsilon \in (0,1/2)\) 
+        ein Netzwerk \(\Phi_\varepsilon \in \mathcal{N}_{1,1}\) mit 
+        \(\mathcal{L}(\Phi_\varepsilon) \leq C\log(\varepsilon^{-1})\), 
+        \(\mathcal{W}(\Phi_\varepsilon) = 3\), \(\mathcal{B}(\Phi_\varepsilon) = 1\), 
+        \(\Phi_\varepsilon(0) = 0\) existiert mit 
+        \[ ||\Phi_\varepsilon(x) - x^2 ||_{L^\infty([0,1])} \leq \varepsilon. \]
+    \end{proposition}
+\end{frame}
+
+\subsection{Multiplikationsfunktion}
+
+\begin{frame}{Multiplikationsfunktion}
+    \begin{proposition} % iii.3
+        Es existiert eine Konstante \(C>0\), sodass für alle \(D\in \R_+\) und \(\varepsilon \in (0, 1/2)\) 
+        ein Netzwerk \(\Phi_{D,\varepsilon} \in \mathcal{N}_{2,1}\) existiert mit 
+        \(\mathcal{L}(\Phi_{D, \varepsilon}) \leq C (\log(\lceil D \rceil) + \log(\varepsilon^{-1})) \), 
+        \(\mathcal{W}(\Phi_{D, \varepsilon}) \leq 5\), \(\mathcal{B}(\Phi_{D, \varepsilon}) = 1\) sowie 
+        \(\Phi_{D,\varepsilon}(0,x) = \Phi_{D,\varepsilon}(x,0) = 0 \;\forall x\in \R\) und 
+        \[ ||\Phi_{D,\varepsilon}(x,y) - xy||_{L^\infty([-D,D]^2)} \leq \varepsilon. \]
+    \end{proposition}
+\end{frame}
+
+\subsection{Polynome}
+
+\begin{frame}{Polynome} % iii.5
+    \newcommand{\Phia}{\Phi_{a,D,\varepsilon}}
+    Es existiert eine Konstante \(C>0\), sodass für alle \(m\in \N\), \(a = (a_i)_{i=0}^m \in \R^{m+1}\), 
+    \(D\in \R_+\) und \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phia \in \mathcal{N}_{1,1}\) 
+    existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil ||a||_\infty \rceil))\), 
+    \(\mathcal{W}(\Phia) \leq 9\), \(\mathcal{B}(\Phia) \leq 1\) sowie 
+    \[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
+\end{frame}
+
+\subsection{Glatte Funktionen}
+
+\begin{frame}{Weierstrass Approximation Theorem} % iii.6
+    \begin{theorem}[Weierstrass Approximation Theorem]
+        Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
+        Polynom \(\pi\), sodass 
+        \[ ||f - \pi ||_{L^\infty([a,b])} \leq \varepsilon. \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Glatte Funktionen}
+    \begin{lemma} % iii.7
+        Betrachte die Menge der Funktionen 
+        \[ \mathcal{S}_{[-1,1]} \coloneqq \left\{ f \in C^\infty([-1,1], \R): ||f^{(n)}||_{L^\infty([-1,1])} \leq n! \;\forall n \in \N_0 \right\}. \]
+        Dann existiert eine Konstante \(C>0\), sodass für alle \(f\in \mathcal{S}_{[-1,1]}\) und \(\varepsilon\in (0,1/2)\) 
+        ein Netz \(\Psi_{f,\varepsilon} \in \mathcal{N}_{1,1}\) existiert mit 
+        \( \mathcal{L}(\Psi_{f,\varepsilon}) \leq C(\log(\varepsilon^{-1}))^2 \), 
+        \(\mathcal{W}(\Psi_{f,\varepsilon}) \leq 9\), \(\mathcal{B}(\Psi_{f,\varepsilon}) \leq 1\) 
+        sowie 
+        \[ ||\Psi_{f,\varepsilon} - f||_{L^\infty([-1,1])} \leq \varepsilon. \]
+    \end{lemma}
+\end{frame}
+
+\subsection{Trigonometrische Funktionen}
+
+\begin{frame}{Trigonometrische Funktionen}
+    \begin{theorem} % iii.8
+        \newcommand{\Psia}{\Psi_{a,D,\varepsilon}}
+        Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(\varepsilon \in (0,1/2)\) 
+        ein Netzwerk \(\Psia \in \mathcal{N}_{1,1}\) mit \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil aD\rceil))\), 
+        \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
+        \[ ||\Psia - \cos(a \cdot) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Trigonometrische Funktionen}
+    \begin{corollary} % iii.9
+        \newcommand{\Psia}{\Psi_{a,b,D,\varepsilon}}
+        Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(b\in \R\), \(\varepsilon \in (0,1/2)\) 
+        ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
+        \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
+        \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
+        \[ ||\Psia - \cos(a \cdot - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
+    \end{corollary}
 \end{frame}
 
 \begin{frame}{Referenzen}
