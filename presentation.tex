@@ -89,6 +89,42 @@
     TODO: überhaupt benötigt? Weight magnitude - Gewicht richtig übersetzt?
 \end{frame}
 
+\begin{frame}{Komposition von ReLU Netzwerken}
+    \begin{lemma}
+        Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\). Dann existiert ein 
+        Netzwerk \(Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
+        \(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
+        \max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
+        sowie
+        \[ \Psi(x) = (\Phi_2 \circ \Phi_1)(x) = \Phi_2(\Phi_1(x)) \;\forall x\in \R^{d_1}. \]
+    \end{lemma}
+    TODO Bild zur Veranschaulichung?
+\end{frame}
+
+\begin{frame}{Aneinanderkettung von ReLU Netzwerken}
+    TODO Aneinanderkettung richtiges Wort?
+    \begin{lemma}
+        Sei \(n, L \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i, d_i' \in \N\) und \(\Phi_i \in \mathcal{N}_{d_i, d_i'}\) 
+        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, \sum_{i=1}^n d_i'}\) 
+        mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) = \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
+        \(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \mathcal{B}(\Phi_i)\) sowie 
+        \[ \Psi(x) = (\Phi_1(x_1), \ldots, \Phi_n(x_n)) \in \R^{\sum_{i=1}^n d_i'} \]
+        für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+    \end{lemma}
+    TODO Bild zur Veranschaulichung?
+\end{frame}
+
+\begin{frame}{Summation von ReLU Netzwerken}
+    \begin{lemma}
+        Sei \(n, L, d' \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i \in \N\), \(a_i \in \R\) und \(\Phi_i \in \mathcal{N}_{d_i, d'}\) 
+        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, d'}\) 
+        mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) \leq \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
+        \(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \set{|a_i| \mathcal{B}(\Phi_i)}\) sowie 
+        \[ \Psi(x) = \sum_{i=1}^n a_i \Phi_i(x_i) \in \R^{d'} \]
+        für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+    \end{lemma}
+\end{frame}
+
 \begin{frame}{Beispiel ReLU Netzwerk}
     Beispiel mit drei layern und dann Konnektivität, Tiefe, Breite, Gewicht angeben (S. 5)
 \end{frame}
