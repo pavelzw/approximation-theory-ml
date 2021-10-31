@@ -14,7 +14,7 @@
 
 \begin{document}
 
-{\Large Lemma III.2}
+{\Large Proposition III.2}
 
 Wir zeigen folgende Behauptung für die lineare Interpolation 
 \(I_m : [0,1] \rightarrow \R, m\in \N\) der Funktion 
@@ -91,8 +91,46 @@ Der Fehler schrumpft exponentiell in der Netzwerklänge, \(\Phi_\varepsilon \col
 erfüllt die geforderten Eigenschaften.
 
 \newpage
-{\Large Lemma III.3}
+{\Large Proposition III.3}
 
+Wir können o. B. d. A. annehmen, dass \(D \geq 1\) gilt. Für \(D < 1\) 
+betrachten wir einfach das Netz, das für \(D=1\) konstruiert wird, welche die gleichen 
+Eigenschaften erfüllt.
 
+Die Argumentation basiert auf der Polarisationsformel 
+\[ xy = \frac{1}{4} ((x+y)^2 - (x-y)^2). \]
+Wir konstruieren zwei Quadrier-Netzwerke (Proposition III.2), 
+die die Neuronen, die für die Summation der \(H_k\) verwenden, teilen 
+sowie davor ein Layer, welches \((x,y)\) auf 
+\((\frac{|x+y|}{2D}, \frac{|x-y|}{2D})\) 
+abbilded sowie eine Ebene, die mit \(D^2\) multipliziert mit Gewichten, 
+die durch \(1\) beschränkt sind. 
+\textit{Den extra Schritt mit dem um \(D\) skalieren und zum Schluss wieder reskalieren 
+machen wir, damit wir das Quadrierungsnetzwerk aus dem vorherigen Satz verwenden können.}
+
+\textit{Matrizen auf den Folien kurz zeigen}
+
+Baue hier ein Netzwerk \(\tilde{\Psi}_m\), 
+welches folgendes erfüllt: 
+\[ \tilde{\Psi}_m(x,y) = \tilde{\Phi}_m(\frac{|x+y|}{2D}) - \tilde{\Phi}_m(\frac{|x-y|}{2D}), \qquad(*) \]
+wobei \(\tilde{\Phi}_m\) wie im vorherigen Beweis definiert ist.
+
+Nun folgt 
+\[ \sup_{(x,y) \in [-D,D]^2} |\tilde{\Psi}_m(x,y) - \frac{xy}{D^2} | 
+= \sup_{(x,y) \in [-D,D]^2} |(\tilde{\Phi}_m(\frac{|x+y|}{2D}) - \tilde{\Phi}_m(\frac{|x-y|}{2D})) 
+- ((\frac{|x+y|}{2D})^2 - (\frac{|x-y|}{2D})^2)| \] 
+\[ \leq 2 \sup_{z\in [0,1]} |\tilde{\Phi}_m(z) - z^2| \leq 2^{-2m-1}. \qquad (**)\]
+
+Setze nun \(\Psi_D(x) = D^2 x\) und wähle 
+\(\Phi_{D,\varepsilon} \coloneqq \Psi_D \circ \tilde{\Psi}_{m(D,\varepsilon)} \), 
+wobei \(m(D, \varepsilon) \coloneqq \lceil 2^{-1}(1+\log(D^2 \varepsilon^{-1})) \rceil \).
+Dann folgt die Fehlerabschätzung aus \((**)\) und die geforderten Beschränkungen an 
+die Breite, Länge und das Gewicht folgen aus der Konstruktion des Netzes zusammen mit Proposition III.2.
+
+Weiter folgt \(\Phi_{D,\varepsilon}(0,x) = \Phi_{D,\varepsilon}(x,0) = 0\) direkt aus \((*)\).
+
+\newpage
+
+{\Large Lemma III.7}
 
 \end{document}
