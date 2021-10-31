@@ -2,8 +2,97 @@
 
 \input{preamble}
 
+\usepackage[margin=2cm]{geometry}
+
+\usepackage{mathtools}
+
+\newcommand{\N}{\mathbb{N}} % blackboard bold N for natural numbers
+\newcommand{\R}{\mathbb{R}} % blackboard bold R for real numbers
+\newcommand{\Z}{\mathbb{Z}} % blackboard bold Z for integers
+
+\renewcommand{\set}[1]{\{#1\}}
+
 \begin{document}
 
-\Large{Approximationstheorie}
+{\Large Lemma III.2}
+
+Wir zeigen folgende Behauptung für die lineare Interpolation 
+\(I_m : [0,1] \rightarrow \R, m\in \N\) der Funktion 
+\(F(x) = x - x^2\) an den Punkten \(\frac{j}{2^m}, j \in \set{0,\ldots, 2^m}\).
+Für jedes \(m\in\N\) ist der Interpolationsfehler identisch auf jedem Intervall zwischen 
+den Interpolationspunkten. \textit{Zeige Fig. 2 aus Paper an Beamer}
+
+\begin{center}
+    \includegraphics[width=5cm]{images/iii2_1.jpg} % iii2_1
+\end{center}
+
+Sei deshalb \(f_m: [0,2^{-m}] \rightarrow [0,2^{-2m-2}]\) definiert als \(f_m(x) = 2^{-m}x - x^2\)
+und dessen lineare Interpolation \(h_m: [0,2^{-m}] \rightarrow [0,2^{-2m-2}]\) mit 
+\[ h_m(x) \coloneqq \begin{cases}
+    2^{-m-1}x, &x\in [0,2^{-m-1}), \\
+    -2^{-m-1}x + 2^{-2m-1}, &x \in [2^{-m-1}, 2^{-m}].
+\end{cases} \]
+
+\begin{center}
+    \includegraphics[width=5cm]{images/iii2_2.jpg} % iii2_2
+\end{center}
+
+Direktes Nachrechnen zeigt, dass 
+\[ f_m(x) - h_m(x) = \begin{cases}
+    f_{m+1}(x), &x\in [0, 2^{-m-1}), \\
+    f_{m+1}(x - 2^{-m-1}), &x \in [2^{-m-1}, 2^{-m}].
+\end{cases} \]
+
+\textit{Zeige Fig. 2 aus Paper an Beamer}
+
+\(F = f_0\) und \(I_1 = h_0\) implizieren, dass 
+\[ F(x) - I_m(x) = f_m(x - \frac{j}{2^m}) \quad x\in [\frac{j}{2^m}, \frac{j+1}{2^m}] \]
+und \(I_m = \sum_{k=0}^{m-1} H_k\) mit \(H_k : [0,1]\rightarrow \R\) gegeben durch 
+\[ H_k(x) = h_k(x - \frac{j}{2^k}), \quad x\in [\frac{j}{2^m}, \frac{j+1}{2^m}]. \]
+
+\begin{center}
+    \includegraphics[width=5cm]{images/iii2_3.jpg} % iii2_3
+\end{center}
+
+Daraus folgt 
+\[ \sup_{x\in [0,1]} |x^2 - (x - I_m(x)) | = \sup_{x\in [0,1]} |F(x) - I_m(x) | = \sup_{x\in [0, 2^{-m}]} |f_m(x)| = 2^{-2m-2}. \]
+
+\textit{Hier verwenden wir das vorherige Lemma, 
+der Approximationsfehler bleibt gleich in jedem Intervall.}
+
+Aus der Sawtooth Konstruktion folgt, dass wir eine einfache Approximation der \(H_k\) finden 
+durch ein neuronales Netzwerk mit zwei Neuronen pro Ebene 
+sowie einem dritten Neuron, um die Approximation \(x - I_m(x)\) für \(x^2\) zu erreichen.
+
+Sei \(s_k(x) \coloneqq 2^{-1}\rho(x) - \rho(x - 2^{-2k-1})\).
+\begin{center}
+    \includegraphics[width=5cm]{images/iii2_4.jpg} % iii2_4
+\end{center}
+
+\textit{Nun können wir jede dieser \(H_k\) Summen durch eine Netz Ebene approximieren 
+und kommen so auf einen Fehler, der exponentiell schrumpft in der Netzwerklänge.}
+
+\textit{Evtl. überspringen?}
+
+Es gilt \(H_k = s_k \circ H_{k-1}\). Wir können ein Netzwerk \(x - I_m(x)\) wie folgt definieren: 
+\(A_1 \coloneqq (1, 1, 1)^T \in \R^{3\times 1}, b_1 \coloneqq (0, -2^{-1}, 0)^T \in \R^3 \),
+\[ A_l \coloneqq \begin{pmatrix}
+    2^{-1} & -1 & 0 \\ 2^{-1} & -1 & 0 \\ -2^{-1} & 1 & 1
+\end{pmatrix} \in \R^{3 \times 3}, b_l \coloneqq \begin{pmatrix}
+    0 \\ -2^{-2l + 1} \\ 0
+\end{pmatrix} \in \R^3 \]
+sowie 
+\(A_{m+1} \coloneqq (-2^{-1}, 1, 1) \in \R^{1 \times 3}, b_{m+1} = 0\).
+
+Setzen wir \(W_l(x) \coloneqq A_l x + b_l\) und 
+\[ \tilde{\Phi}_m \coloneqq W_{m+1} \circ \rho \circ W_m \circ \cdots \circ \rho \circ W_1, \]
+bekommen wir durch direktes Nachrechnen \(\tilde{\Phi}_m(x) = x - \sum_{k=0}^{m-1} H_k(x)\). 
+Der Fehler schrumpft exponentiell in der Netzwerklänge, \(\Phi_\varepsilon \coloneqq \tilde{\Phi}_{\lceil \log(\varepsilon^{-1})/2 \rceil}\) 
+erfüllt die geforderten Eigenschaften.
+
+\newpage
+{\Large Lemma III.3}
+
+
 
 \end{document}

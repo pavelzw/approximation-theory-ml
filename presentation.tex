@@ -68,7 +68,7 @@
             W_L \circ \rho \circ \cdots \circ \rho \circ W_1, & L \geq 2
         \end{cases} \]
         gegeben ist. Hierbei ist für \(l\in \set{1,\ldots, L}\) \(W_l : \R^{N_{l-1}} \rightarrow \R^{N_l}, W_l(x) = A_l x + b_l\) 
-        the jeweilige affine Transformation und \(\rho: \R \rightarrow \R\), \(\rho(x) := \max\set{0, x}\) 
+        die jeweilige affine Transformation und \(\rho: \R \rightarrow \R\), \(\rho(x) := \max\set{0, x}\) 
         die ReLU-Funktion (komponentenweise).
 
         Die Menge aller ReLU Netzwerke mit Input-Dimension \(N_0 = d\) und Output-Dimension \(N_L = d'\) 
@@ -86,7 +86,6 @@
             \item[Gewicht] \(\mathcal{B}(\Phi) := \max_{l=1,\ldots, L} \max\set{||A_l ||_\infty, ||b_l||_\infty}\).
         \end{description}
     \end{definition}
-    TODO: überhaupt benötigt? Weight magnitude - Gewicht richtig übersetzt?
 \end{frame}
 
 \begin{frame}{Komposition von ReLU Netzwerken}
@@ -145,6 +144,27 @@
         \(\downarrow\) \\
         Trigonometrische Funktionen
     \end{center}
+\end{frame}
+
+\begin{frame}{Sawtooth Konstruktion}
+    \[g(x) \coloneqq 2\rho(x) - 4 \rho(x - \frac{1}{2}) + 2\rho(x-1) = \begin{cases}
+        2x, & 0\leq x < 1, \\ 
+        2(1-x), & \frac{1}{2} \leq x \leq 1, \\
+        0, & \text{sonst.}
+    \end{cases}\]
+    \[g_s \coloneqq \underbrace{g \circ \cdots \circ g}_s \]
+
+    TODO Bilder von \(g_1, g_2, g_3\)
+\end{frame}
+
+\begin{frame}{Eigenschaften von \(g_s\)}
+    Sei \(s\in\N\), \(k \in \set{0,1,\ldots, 2^{s-1}-1}\). Dann gilt \(g(2^{s-1} \cdot - k)\) 
+    hat Träger \([\frac{k}{2^{s-1}}, \frac{k+1}{2^{s-1}}]\), weiter gilt 
+    \[ g_s(x) = \sum_{k=0}^{2^{s-1}-1} g(2^{s-1}x - k), x\in [0,1] \]
+    sowie 
+    \[ g_s(\frac{k}{2^{s-1}}+x) = g_s(\frac{k+1}{2^{2-1}} - x), x \in [0, \frac{1}{2^{s-1}}] \]
+
+    TODO Erklärung, was die Intuition hinter den Formeln ist
 \end{frame}
 
 \subsection{Quadrierfunktion}
