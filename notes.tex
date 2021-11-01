@@ -133,4 +133,27 @@ Weiter folgt \(\Phi_{D,\varepsilon}(0,x) = \Phi_{D,\varepsilon}(x,0) = 0\) direk
 
 {\Large Lemma III.7}
 
+\textit{Es gibt ein fundamentales Ergebnis aus der Lagrange Interpolation mit 
+Tschebyscheff Punkten, welche folgendes garantiert.}
+Satz: 
+Für alle \(f\in \mathcal{S}_{[-1,1]}\), \(m\in\N\) existiert ein Polynom 
+\(P_{f,m}\) mit Grad \(m\), sodass 
+\[ ||f - P_{f,m}||_{L^\infty ([-1,1])} \leq \frac{1}{(m+1)!2^m} ||f^{(m+1)}||_{L^\infty ([-1,1])} \leq \frac{1}{2^m}. \]
+
+Wir können \(P_{f,m}\) durch die Tschebyscheff-Basis darstellen: 
+\[ P_{f,m} = \sum_{j=0}^m c_{f,m,j} T_j(x) \]
+mit \(|c_{f,m,j}| \leq 2\) 
+und den Tschebyscheff-Polynomen, die durch die Zweitermrekursion 
+\[ T_k(x) = 2x T_{k-1}(x) - T_{k-2}(x), T_0(x) = 1, T_1(x) = x \]
+definiert sind.
+Weiter gilt, dass die Koeffizienten von \(T_k\) in der Monom-Basis 
+durch \(3^k\) beschränkt sind. 
+Also können wir \(P_{f,m} = \sum_{j=0}^m a_{f,m,j} x^j\) schreiben mit 
+\[ A_{f,m} \coloneqq \max_{j=0,\ldots, m} |a_{f,m,j}| \leq 2(m+1)3^m. \] 
+
+Wenn wir nun Proposition III.5 anwenden auf \(P_{f,m}\) mit \(m= \lceil \log(2/\varepsilon)\rceil\) 
+und Approximationsfehler \(\varepsilon/2\), folgt die Behauptung durch
+\[ C' m(\log(2/\varepsilon) + \log(m) + \log(|A_{f,m}|)) \leq C (\log(\varepsilon^{-1}))^2 \]
+für eine Konstante \(C\).
+
 \end{document}
