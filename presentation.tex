@@ -162,7 +162,7 @@
     hat Träger \([\frac{k}{2^{s-1}}, \frac{k+1}{2^{s-1}}]\), weiter gilt 
     \[ g_s(x) = \sum_{k=0}^{2^{s-1}-1} g(2^{s-1}x - k), x\in [0,1] \]
     sowie 
-    \[ g_s(\frac{k}{2^{s-1}}+x) = g_s(\frac{k+1}{2^{2-1}} - x), x \in [0, \frac{1}{2^{s-1}}] \]
+    \[ g_s(\frac{k}{2^{s-1}}+x) = g_s(\frac{k+1}{2^{2-1}} - x), x \in [0, \frac{1}{2^{s-1}}]. \]
 
     TODO Erklärung, was die Intuition hinter den Formeln ist
 \end{frame}
@@ -226,19 +226,21 @@
 
 \subsection{Polynome}
 
-\begin{frame}{Polynome} % iii.5
-    \newcommand{\Phia}{\Phi_{a,D,\varepsilon}}
-    Es existiert eine Konstante \(C>0\), sodass für alle \(m\in \N\), \(a = (a_i)_{i=0}^m \in \R^{m+1}\), 
-    \(D\in \R_+\) und \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phia \in \mathcal{N}_{1,1}\) 
-    existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil ||a||_\infty \rceil))\), 
-    \(\mathcal{W}(\Phia) \leq 9\), \(\mathcal{B}(\Phia) \leq 1\) sowie 
-    \[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
+\begin{frame}{Polynome}
+    \begin{proposition} % iii.5
+        \newcommand{\Phia}{\Phi_{a,D,\varepsilon}}
+        Es existiert eine Konstante \(C>0\), sodass für alle \(m\in \N\), \(a = (a_i)_{i=0}^m \in \R^{m+1}\), 
+        \(D\in \R_+\) und \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phia \in \mathcal{N}_{1,1}\) 
+        existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil ||a||_\infty \rceil))\), 
+        \(\mathcal{W}(\Phia) \leq 9\), \(\mathcal{B}(\Phia) \leq 1\) sowie 
+        \[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
+    \end{proposition}
 \end{frame}
 
 \subsection{Glatte Funktionen}
 
-\begin{frame}{Weierstrass Approximation Theorem} % iii.6
-    \begin{theorem}[Weierstrass Approximation Theorem]
+\begin{frame}{Weierstrass Approximation Theorem}
+    \begin{theorem}[Weierstrass Approximation Theorem] % iii.6
         Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
         Polynom \(\pi\), sodass 
         \[ ||f - \pi ||_{L^\infty([a,b])} \leq \varepsilon. \]
@@ -266,7 +268,7 @@
         Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(\varepsilon \in (0,1/2)\) 
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1}\) mit \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil aD\rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
-        \[ ||\Psia - \cos(a \cdot) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
+        \[ ||\Psia - \cos(a x) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
     \end{theorem}
 \end{frame}
 
@@ -277,7 +279,7 @@
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
         \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
-        \[ ||\Psia - \cos(a \cdot - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
+        \[ ||\Psia - \cos(a x - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
     \end{corollary}
 \end{frame}
 

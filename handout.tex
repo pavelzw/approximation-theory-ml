@@ -50,6 +50,9 @@
 % Font
 \renewcommand{\familydefault}{\sfdefault}
 
+\newcommand{\N}{\mathbb{N}} % blackboard bold N for natural numbers
+\newcommand{\R}{\mathbb{R}} % blackboard bold R for real numbers
+\newcommand{\Z}{\mathbb{Z}} % blackboard bold Z for integers
 
 % Start of document
 \begin{document}
@@ -69,179 +72,145 @@
 \end{center}
 \vspace{-1cm}
 
-\section{A section}
-\label{sec:a-section}
+\section{Voraussetzungen}
+\label{sec:prerequisites}
 
-Some text in a section.
+\begin{definition}[ReLU Netzwerk]
+	Sei \(L \in \N\) und \(N_0, N_1, \ldots, N_L \in \N\). Ein 
+	\textit{ReLU neuronales Netz} \(\Phi\) ist eine Abbildung 
+	\(\Phi: \R^{N_0} \rightarrow \R^{N_L}\), die durch 
+	\[ \Phi = \begin{cases}
+		W_1, & L = 1, \\
+		W_L \circ \rho \circ \cdots \circ \rho \circ W_1, & L \geq 2
+	\end{cases} \]
+	gegeben ist. Hierbei ist für \(l\in \set{1,\ldots, L}\) \(W_l : \R^{N_{l-1}} \rightarrow \R^{N_l}, W_l(x) = A_l x + b_l\) 
+	die jeweilige affine Transformation und \(\rho: \R \rightarrow \R\), \(\rho(x) := \max\set{0, x}\) 
+	die ReLU-Funktion (komponentenweise).
 
-\section*{An unnumbered section}
+	Die Menge aller ReLU Netzwerke mit Input-Dimension \(N_0 = d\) und Output-Dimension \(N_L = d'\) 
+	definieren wir als \(\mathcal{N}_{d,d'}\).
+\end{definition}
 
-This section, unlike section~\ref{sec:a-section} is not numbered.
-This is indicated by the ``*'', i.e., \verb|\section*| instead of \verb|\section|.
-Such ``starred'' and ``unstarred'' variants also exist for many environments (and commands).
-There are subsections, subsubsections and paragraphs (and subparagraphs) for more fine-grained subdivision.
-
-\subsection*{A subsection}
-
-Some text.
-
-\subsubsection*{A subsubsection}
-
-More text.
-
-\paragraph*{A paragraph}
-
-Even more text.
-
-
-\section{Important hint}
-
-If you don't know \LaTeX{}, how to use math mode, environment, and so on,
-a short tutorial/introduction will be more useful than this document.
-This document is only a reminder of some basic \LaTeX{} stuff.
-Not the absolute basics, and nothing advanced.
-
-Furthermore, use a \textbf{suitable editor}.
-This will make using \LaTeX{} \emph{much} easier.
-
-\section{Basic usage of \LaTeX}
-\label{sec:math-and-env}
-
-
-\subsection{{\texttt{\textbackslash{}newcommand} for shorthands}}
-\label{subsec:newcommand}
-
-Using \verb|\newcommand{\cmdname}{output}| you can define shorthands,
-e.g., \verb|\IN| for natural numbers $\IN$, and so on.
-See the preamble.
-Much more than mere text insertion is possible.
-See (advanced) \LaTeX{} introductions.
-
-\subsection{Lists}
-\label{subsec:lists}
-
-Use \verb|itemize|, \verb|enumerate| or \verb|description| for lists.
-For example (itemize):
-\begin{itemize}
-	\item First item
-	\item Second item
-\end{itemize}
-
-
-\subsection{Math environments}
-\label{subsec:math-env}
-
-Use \emph{inline} math mode (i.e., tex code in \$'s) for inline math,
-e.g., $\lim_{x \to 1} e^{2 \pi i x} = 1$ or $\alpha \beta = \Gamma$.
-Use the \verb|equation*| environment (or \verb|\[| and \verb|\]|)
-for math in \emph{display} mode, e.g.,
-\begin{equation*}
-\lim_{x \to 1} e^{2 \pi i x} = 1.
-\end{equation*}
-If you use \verb|equation| you get numbered equations which you can reference to (see section~\ref{sec:references}).
-\begin{equation}
-\label{eq:eqn}
-|x| = \left\{
-\begin{array}{rl}
--x &\mbox{ if $x<0$} \\
-x &\mbox{ otherwise}
-\end{array}
-\right.
-\end{equation}
-
-Proofs, Definition, Lemmata, Propositions, Theorems, Remarks, etc, have their own environments.
-Environments can be be changed/redefined and new ones can be defined.
-
-\begin{definition}[Negligible function]
-	\label{def:negl}
-	Let $f \colon \IN \to \IR$ be a function.
-	If for any $k > 0$, it holds that $f(x) x^k \rightarrow 0$ for $x \to \infty$,
-	then we call $f$ \emph{negligible}.
+\begin{definition}[Eigenschaften eines ReLU Netzwerks]\leavevmode
+	\begin{description}
+		\item[Konnektivität] \(\mathcal{M}(\Phi)\) ist die Anzahl der nicht null Einträge in \(A_1, \ldots, A_L\) 
+		sowie \(b_1, \ldots, b_L\),
+		\item[Tiefe] \(\mathcal{L}(\Phi) := L\),
+		\item[Breite] \(\mathcal{W}(\Phi) := \max_{l=0,\ldots, L} N_l\),
+		\item[Gewicht] \(\mathcal{B}(\Phi) := \max_{l=1,\ldots, L} \max\set{||A_l ||_\infty, ||b_l||_\infty}\).
+	\end{description}
 \end{definition}
 
 \begin{lemma}
-	$f(x) = 0$ is a negligible function.
+	Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\). Dann existiert ein 
+	Netzwerk \(\Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
+	\(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
+	\max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
+	sowie
+	\[ \Psi(x) = (\Phi_2 \circ \Phi_1)(x) = \Phi_2(\Phi_1(x)) \;\forall x\in \R^{d_1}. \]
 \end{lemma}
 
-\begin{proposition}
-	If $f$ and $g$ are negligible functions,
-	then $f + g$ is a negligible function.
+\begin{lemma}
+	Sei \(n, L \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i, d_i' \in \N\) und \(\Phi_i \in \mathcal{N}_{d_i, d_i'}\) 
+	mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, \sum_{i=1}^n d_i'}\) 
+	mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) = \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
+	\(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \mathcal{B}(\Phi_i)\) sowie 
+	\[ \Psi(x) = (\Phi_1(x_1), \ldots, \Phi_n(x_n)) \in \R^{\sum_{i=1}^n d_i'} \]
+	für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+\end{lemma}
+
+\begin{lemma}
+	Sei \(n, L, d' \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i \in \N\), \(a_i \in \R\) und \(\Phi_i \in \mathcal{N}_{d_i, d'}\) 
+	mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, d'}\) 
+	mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) \leq \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
+	\(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \set{|a_i| \mathcal{B}(\Phi_i)}\) sowie 
+	\[ \Psi(x) = \sum_{i=1}^n a_i \Phi_i(x_i) \in \R^{d'} \]
+	für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+\end{lemma}
+
+\section{Approximationstheorie}
+
+\begin{definition}[Sawtooth Konstruktion]
+	\[g(x) \coloneqq 2\rho(x) - 4 \rho(x - \frac{1}{2}) + 2\rho(x-1) = \begin{cases}
+        2x, & 0\leq x < 1, \\ 
+        2(1-x), & \frac{1}{2} \leq x \leq 1, \\
+        0, & \text{sonst.}
+    \end{cases}\]
+    \[g_s \coloneqq \underbrace{g \circ \cdots \circ g}_s \]
+\end{definition}
+
+\begin{lemma}
+	Sei \(s\in\N\), \(k \in \set{0,1,\ldots, 2^{s-1}-1}\). Dann gilt \(g(2^{s-1} \cdot - k)\) 
+    hat Träger \([\frac{k}{2^{s-1}}, \frac{k+1}{2^{s-1}}]\), weiter gilt 
+    \[ g_s(x) = \sum_{k=0}^{2^{s-1}-1} g(2^{s-1}x - k), x\in [0,1] \]
+    sowie 
+    \[ g_s(\frac{k}{2^{s-1}}+x) = g_s(\frac{k+1}{2^{2-1}} - x), x \in [0, \frac{1}{2^{s-1}}]. \]
+\end{lemma}
+
+\begin{proposition} % iii.2
+	Es existiert eine Konstante \(C>0\), sodass für alle \(\varepsilon \in (0,1/2)\) 
+	ein Netzwerk \(\Phi_\varepsilon \in \mathcal{N}_{1,1}\) mit 
+	\(\mathcal{L}(\Phi_\varepsilon) \leq C\log(\varepsilon^{-1})\), 
+	\(\mathcal{W}(\Phi_\varepsilon) = 3\), \(\mathcal{B}(\Phi_\varepsilon) = 1\), 
+	\(\Phi_\varepsilon(0) = 0\) existiert mit 
+	\[ ||\Phi_\varepsilon(x) - x^2 ||_{L^\infty([0,1])} \leq \varepsilon. \]
 \end{proposition}
 
-The following theorem has a proof included.
+\begin{proposition} % iii.3
+	Es existiert eine Konstante \(C>0\), sodass für alle \(D\in \R_+\) und \(\varepsilon \in (0, 1/2)\) 
+	ein Netzwerk \(\Phi_{D,\varepsilon} \in \mathcal{N}_{2,1}\) existiert mit 
+	\(\mathcal{L}(\Phi_{D, \varepsilon}) \leq C (\log(\lceil D \rceil) + \log(\varepsilon^{-1})) \), 
+	\(\mathcal{W}(\Phi_{D, \varepsilon}) \leq 5\), \(\mathcal{B}(\Phi_{D, \varepsilon}) = 1\) sowie 
+	\(\Phi_{D,\varepsilon}(0,x) = \Phi_{D,\varepsilon}(x,0) = 0 \;\forall x\in \R\) und 
+	\[ ||\Phi_{D,\varepsilon}(x,y) - xy||_{L^\infty([-D,D]^2)} \leq \varepsilon. \]
+\end{proposition}
 
-\begin{theorem}[The ring of negligible functions]
-	The set of negligible functions is closed under addition, subtraction and multiplication.
+\begin{proposition} % iii.5
+	\newcommand{\Phia}{\Phi_{a,D,\varepsilon}}
+	Es existiert eine Konstante \(C>0\), sodass für alle \(m\in \N\), \(a = (a_i)_{i=0}^m \in \R^{m+1}\), 
+	\(D\in \R_+\) und \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phia \in \mathcal{N}_{1,1}\) 
+	existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil ||a||_\infty \rceil))\), 
+	\(\mathcal{W}(\Phia) \leq 9\), \(\mathcal{B}(\Phia) \leq 1\) sowie 
+	\[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
+\end{proposition}
+
+\begin{theorem}[Weierstrass Approximation Theorem] % iii.6
+	Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
+	Polynom \(\pi\), sodass 
+	\[ ||f - \pi ||_{L^\infty([a,b])} \leq \varepsilon. \]
 \end{theorem}
-\begin{proof}
-	This is just an application of theorems about limits of series and induction.
-	For example, $0 = 0 + 0 = \lim_{x \to \infty} f(x)x^k + \lim_{x \to \infty} g(x)x^k = \lim_{x \to \infty} (f(x) + g(x))x^k$
-	and
-	\begin{equation*}
-	0 = 0 \cdot 0 = \lim_{x \to \infty} f(x) x^{k} \lim_{x \to \infty} f(x) g(x)) x^{k} = \lim_{x \to \infty} (f(x) g(x)) x^{2k}
-	\end{equation*}
-\end{proof}
 
-\begin{corollary}
-	Working with negligible functions is easy.
+\begin{lemma} % iii.7
+	Betrachte die Menge der Funktionen 
+	\[ \mathcal{S}_{[-1,1]} \coloneqq \left\{ f \in C^\infty([-1,1], \R): ||f^{(n)}||_{L^\infty([-1,1])} \leq n! \;\forall n \in \N_0 \right\}. \]
+	Dann existiert eine Konstante \(C>0\), sodass für alle \(f\in \mathcal{S}_{[-1,1]}\) und \(\varepsilon\in (0,1/2)\) 
+	ein Netz \(\Psi_{f,\varepsilon} \in \mathcal{N}_{1,1}\) existiert mit 
+	\( \mathcal{L}(\Psi_{f,\varepsilon}) \leq C(\log(\varepsilon^{-1}))^2 \), 
+	\(\mathcal{W}(\Psi_{f,\varepsilon}) \leq 9\), \(\mathcal{B}(\Psi_{f,\varepsilon}) \leq 1\) 
+	sowie 
+	\[ ||\Psi_{f,\varepsilon} - f||_{L^\infty([-1,1])} \leq \varepsilon. \]
+\end{lemma}
+
+\begin{theorem} % iii.8
+	\newcommand{\Psia}{\Psi_{a,D,\varepsilon}}
+	Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(\varepsilon \in (0,1/2)\) 
+	ein Netzwerk \(\Psia \in \mathcal{N}_{1,1}\) mit \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil aD\rceil))\), 
+	\(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
+	\[ ||\Psia - \cos(a x) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
+\end{theorem}
+
+\begin{corollary} % iii.9
+	\newcommand{\Psia}{\Psi_{a,b,D,\varepsilon}}
+	Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(b\in \R\), \(\varepsilon \in (0,1/2)\) 
+	ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
+	\(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
+	\(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
+	\[ ||\Psia - \cos(a x - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
 \end{corollary}
-
-\begin{remark}
-	If $f$ is \emph{not} negligible,
-	this does \emph{not} imply that $|f(x)| \geq x^{-k}$ always.
-	This needs to hold for infinitely many $x \in \IN$ (and $k > 0$).
-	E.g., $f(x) = 1 - (-1)^x$ is not negligible.
-\end{remark}
-
-There are a lot more useful things for math layout,
-e.g., \verb|align| and \verb|aligned| environments for equations, and so on.
-
-\subsection{References}
-\label{sec:references}
-
-To refer to a section, or any other ``referrable'' object, use the ``ref'' command.
-For example: Section~\ref{sec:a-section} or Definition~\ref{def:negl} or Eq.~(\ref{eq:eqn}).
-The tilde \verb|~| is an ``unbreakable space''.
-(There are more advanced ways to do this, which are especially useful for longer documents.
-For example the ``cleveref'' package.)
-
-
-\subsection{Literature and BibTeX}
-\label{subsec:literature}
-
-To refer to literature, use BibTeX (which needs a bib-file) and run it (on the main document).
-The bibfile is set by \verb|\bibliography{FILENAME}| in the preamble.
-The literature inserted by the \verb|\printbibliography{}| command. (See the end of the document).
-A good source of (sample) bibfiles is \url{https://dblp.uni-trier.de}.
-Use \verb|\cite{}| (e.g., \cite{DH76} or \cite{RSA78}) or variants (see Section~\ref{subsec:packages}).
-
-
-\subsection{Packages and the internet}
-\label{subsec:packages}
-
-There is a huge supply of useful packages.
-For almost every problem, there's a package to solve it.
-Just use the internet to find them.
-(Special mention: TikZ, cleveref, cryptocode)
-
-Reading some short introduction/tutorial on \LaTeX{} is also recommended.
-Because this document only scratches the surface:
-It does not have tables, pictures, splitting the document into multiple files, and so on.
-Good starting points are:
-Search engines, \url{https://en.wikibooks.org/wiki/LaTeX}, \url{https://tex.stackexchange.com}
-
-
-
-\subsection{Miscellaneous}
-\label{subsec:misc}
-
-To start a new paragraph, use either an empty line in the source tex file or the command \verb|\par|.
-
-Footnotes work via the \verb|footnote| command.\footnote{This is a footnote.}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Content ends here
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nocite{Grohs2019}
 \printbibliography{}
 \end{document}
