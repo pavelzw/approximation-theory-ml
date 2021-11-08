@@ -162,7 +162,7 @@
     hat Träger \([\frac{k}{2^{s-1}}, \frac{k+1}{2^{s-1}}]\), weiter gilt 
     \[ g_s(x) = \sum_{k=0}^{2^{s-1}-1} g(2^{s-1}x - k), x\in [0,1] \]
     sowie 
-    \[ g_s(\frac{k}{2^{s-1}}+x) = g_s(\frac{k+1}{2^{2-1}} - x), x \in [0, \frac{1}{2^{s-1}}]. \]
+    \[ g_s\left(\frac{k}{2^{s-1}}+x\right) = g_s\left(\frac{k+1}{2^{2-1}} - x\right), x \in \left[0, \frac{1}{2^{s-1}} \right]. \]
 
     TODO Erklärung, was die Intuition hinter den Formeln ist
 \end{frame}
@@ -281,6 +281,14 @@
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
         \[ ||\Psia - \cos(a x - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
     \end{corollary}
+\end{frame}
+
+\begin{frame}{Abschluss} % iii.10
+    \begin{itemize}
+        \item Netzwerke mit endlicher Breite und Tiefe, die polylogarithmisch in \(\varepsilon^{-1}\) wächst, können die Funktionenklassen approximieren \pause
+        \item Wegen \(\mathcal{M}(\Phi) \leq \mathcal{L}(\Phi) \mathcal{W}(\Phi)(\mathcal{W}(\Phi) + 1)\) wächst die Konnektivität auch nur polylogarithmisch in \(\varepsilon^{-1}\) \pause
+        \item \( \Rightarrow \) der Approximationsfehler \(\varepsilon\) fällt exponentiell in der Konnektivität/der Anzahl der Parametern im neuronalen Netz
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Referenzen}
