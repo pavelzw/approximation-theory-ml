@@ -91,7 +91,7 @@
 \begin{frame}{Komposition von ReLU Netzwerken}
     \begin{lemma}
         Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\). Dann existiert ein 
-        Netzwerk \(Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
+        Netzwerk \(\Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
         \(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
         \max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
         sowie
@@ -193,6 +193,37 @@
     \end{proposition}
 \end{frame}
 
+\begin{frame}{Multiplikationsfunktion}
+    \begin{align*}
+        A_1 &\coloneqq \frac{1}{2D} \begin{pmatrix}
+            1 & 1 \\ -1 & -1 \\ 1 & -1 \\ -1 & 1
+        \end{pmatrix}, \quad b_1 \coloneqq \begin{pmatrix}
+            0 \\ 0 \\ 0 \\ 0
+        \end{pmatrix}, \qquad
+        A_2 \coloneqq \begin{pmatrix}
+            1 & 1 & 0 & 0 \\
+            1 & 1 & 0 & 0 \\
+            1 & 1 & -1 & -1 \\
+            0 & 0 & 1 & 1 \\
+            0 & 0 & 1 & 1
+        \end{pmatrix}, \quad b_2 \coloneqq \begin{pmatrix}
+            0 \\ -2^{-1} \\ 0 \\ 0 \\ -2^{-1}
+        \end{pmatrix} \\
+        A_l &\coloneqq \begin{pmatrix}
+            2^{-1} & -1 & 0 & 0 & 0 \\
+            2^{-1} & -1 & 0 & 0 & 0 \\
+            -2^{-1} & 1 & 1 & 2^{-1} & -1 \\
+            0 & 0 & 0 & 2^{-1} & -1 \\
+            0 & 0 & 0 & 2^{-1} & -1
+        \end{pmatrix}, \quad b_l \coloneqq \begin{pmatrix}
+            0 \\ -2^{-2l+3} \\ 0 \\ 0 \\ -2^{-2l+3}
+        \end{pmatrix}, \text{ für } l \in \set{3, \ldots, m+1} \\
+        A_{m+2} &\coloneqq \begin{pmatrix}
+            -2^{-1} & 1 & 1 & 2^{-1} & -1
+        \end{pmatrix}, \quad b_{m+2} \coloneqq 0
+    \end{align*}
+\end{frame}
+
 \subsection{Polynome}
 
 \begin{frame}{Polynome} % iii.5
@@ -252,6 +283,7 @@
 
 \begin{frame}{Referenzen}
     \footnotesize
+    \nocite{Grohs2019}
     \printbibliography[heading=none]
 \end{frame}
 
