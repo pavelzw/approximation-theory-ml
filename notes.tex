@@ -163,6 +163,56 @@ für eine Konstante \(C\). \qed
 
 {\Large Theorem III.8}
 
+Es gilt \(f(x) := (6/\pi^3) \cos(\pi x) \in \mathcal{S}_{[-1,1]}\). Also existiert nach Lemma III.7 
+ein \(C>0\), sodass für jedes \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phi_\varepsilon \in \mathcal{N}_{1,1}\) 
+mit \(\mathcal{L}(\Phi_\varepsilon) \leq C \log(\varepsilon^{-1})^2, \mathcal{W}(\Phi_\varepsilon) \leq 9, 
+\mathcal{B}(\Phi_\varepsilon) \leq 1\) sowie 
+\[ ||\Phi_\varepsilon - f ||_{L^{\infty}([-1,1])} \leq \frac{6}{\pi^3} \varepsilon. \tag{\(*\)} \]
 
+\textit{Wir erweitern dieses Resultat jetzt für die Approximatino von \(\cos(ax)\) auf \([-1,1]\) für beliebiges \(a\in \R_+\). 
+Das bekommen wir hin, indem wir ausnutzen, dass \(\cos(\pi x))\) \(2\)-periodisch und gerade ist.}
+
+Sei \(g_s:[0,1] \rightarrow [0,1]\) die Sawtooth Funktion der Ordnung \(s\) und aufgrund der Periodizität und Symmetrie der Cosinus Funktion gilt 
+\[ \cos(\pi 2^s x) = \cos(\pi g_s(|x|)). \]
+
+Sei \(a > \pi\). Definiere \(s = s(a) \coloneqq \lceil \log(a) - \log(\pi) \rceil\) und \(\alpha = \alpha(a) \coloneqq (\pi 2^s)^{-1}a \in (1/2, 1]\). 
+Es gilt dann 
+\[ \cos(ax) = cos(\pi 2^s \alpha x) = \cos(\pi g_s(\alpha |x|)). \]
+
+Es folgt aus \((*)\)
+\[ || \frac{\pi^3}{6} \Phi_\varepsilon (g_s(\alpha |x|)) - \cos(ax) ||_{L^{\infty}([-1,1])} = \frac{\pi^3}{6} ||\Phi_\varepsilon (g_s(\alpha |x|)) - f(g_s(\alpha |x|))||_{L^\infty ([-1,1])} \leq \varepsilon. \]
+
+\textit{Wir wollen nun dieses Netzwerk \(\frac{\pi^3}{6} \Phi_\varepsilon (g_s(\alpha |x|))\) realisieren.}
+Erstelle Netzwerke \(\Psi_g^s(x) = g_s(x)\) mit \(\mathcal{B}(\Psi_g^s) \leq 1, \mathcal{L}(\Psi_g^s ) = 7(s+1)\) und \(\mathcal{W}(\Psi_g^s) = 3\).
+\textit{Das geht, indem wir die Netzwerke \(\Phi_g^s\), die zu Beginn des Vortrags definiert worden sind, die \(g_s\) darstellen, etwas anpassen.}
+Setze weiter \(\Phi(x) \coloneqq \alpha \rho(x) - \alpha \rho(-x) = \alpha |x|\) 
+und nimm ein Multiplikationsnetzwerk \(\Phi_{\pi^3/6}^{\text{mult}}\). Setze nun 
+\[ \Psi_{a,\varepsilon} \coloneqq \Phi_{\pi^3/6}^{\text{mult}} \circ \Phi_\varepsilon \circ \Psi_g^s \circ \Psi = \Phi_\varepsilon(g_s(\alpha |x|)). \]
+\textit{Aus dem Lemma über Konkatenationen von neuronalen Netzen folgt nun:}
+\(\Rightarrow \mathcal{L}(\Psi_{a,\varepsilon}) \leq C ((\log(\varepsilon^{-1}))^2 + \log(\lceil a \rceil) ), \mathcal{W}(\Psi_{a,\varepsilon}) \leq 9\) 
+und \( \mathcal{B}(\Psi_{a,\varepsilon}) \leq 1 \). 
+\(\Rightarrow\) gewünschte Apprximation für \(a > \pi\).
+
+Für \(a < \pi\), wähle 
+\[ \Psi_{a,\varepsilon} \coloneqq \Phi_{\pi^3/6}^{\text{mult}} \circ \Phi_\varepsilon,  \]
+da \(x\mapsto (6/\pi^3) \cos(ax) \in \mathcal{S}_{[-1,1]}\).
+
+Betrachte nun für ein beliebiges \(D\geq 1\) die Approximation von \(x \mapsto \cos(ax)\) auf \([-D,D]\). 
+Definiere \(\Psi_{a,D,\varepsilon}(x) \coloneqq \Psi_{aD,\varepsilon}(\frac{x}{D})\). \textit{[Achtung, einmal im Index \(a,D\), einmal \(aD\)]} Wir sehen 
+\begin{align*}
+    \sup_{x\in [-D,D]} |\Psi_{a,D,\varepsilon}(x) - \cos(ax)| &= \sup_{y\in [-1,1]} |\Psi_{a,D,\varepsilon} (Dy) - \cos(aDy) | \\
+    &= \sup_{y\in [-1,1]} |\Psi_{aD,\varepsilon}(y) - \cos(aDy)| \leq \varepsilon. 
+\end{align*}\qed
+
+\newpage
+
+{\Large Korollar III.9}
+
+Seien \(a,D\in \R_+, b\in \R, \varepsilon \in (0, 1/2)\) gegeben. 
+Das Netzwerk 
+\[ \Psi_{a,b,D,\varepsilon}(x) \coloneqq \Psi_{a, D + \frac{|b|}{a}, \varepsilon}(x - \frac{b}{a}) \]
+erfüllt die geforderten Bedingungen: 
+\[ \sup_{x\in [-D,D]} |\Psi_{a,b,D,\varepsilon}(x) - \cos(ax-b) | \leq \sup_{y \in [-(D+\frac{|b|}{a}), D+ \frac{|b|}{a}]} |\Psi_{a,D+\frac{|b|}{a},\varepsilon}(y) - \cos(ay)| \leq \varepsilon. \]
+\textit{[Durch die Substitution \(y = x + \frac{b}{a}\)]}
 
 \end{document}
