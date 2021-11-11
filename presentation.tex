@@ -329,36 +329,45 @@
 
     \begin{center}
         \begin{tikzpicture}[scale=2]
-           \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
-           \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
-           \draw[domain=0:0.5, smooth, variable=\x, blue] plot ({\x}, {2*\x});
-           \draw[domain=0.5:1, smooth, variable=\x, blue]  plot ({\x}, {2*(1-\x)});
-           \node at (0.5, 1.5) {\(g_1\)};
-        \end{tikzpicture}
+            \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+            \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+            \draw[domain=0:0.5, smooth, variable=\x, blue] plot ({\x}, {2*\x});
+            \draw[domain=0.5:1, smooth, variable=\x, blue]  plot ({\x}, {2*(1-\x)});
+            \node at (0.5, 1.5) {\(g_1\)};
+            \draw (1, -0.05) node [below] {\(1\)} -- (1, 0.05);
+            \draw (-0.05, 1) node [left] {\(1\)} -- (0.05, 1);
+            \draw (0, 0) node [below left] {\(0\)};
+        \end{tikzpicture} \qquad
         \begin{tikzpicture}[scale=2]
-           \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
-           \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
-           \draw[domain=0:0.25, smooth, variable=\x, blue] plot ({\x}, {4*\x});
-           \draw[domain=0.25:0.5, smooth, variable=\x, blue]  plot ({\x}, {4*(0.5-\x)});
-           \draw[domain=0.5:0.75, smooth, variable=\x, blue]  plot ({\x}, {4*(\x-0.5)});
-           \draw[domain=0.75:1, smooth, variable=\x, blue]  plot ({\x}, {4*(1-\x)});
-           \node at (0.5, 1.5) {\(g_2\)};
-        \end{tikzpicture}
+            \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+            \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+            \draw[domain=0:0.25, smooth, variable=\x, blue] plot ({\x}, {4*\x});
+            \draw[domain=0.25:0.5, smooth, variable=\x, blue]  plot ({\x}, {4*(0.5-\x)});
+            \draw[domain=0.5:0.75, smooth, variable=\x, blue]  plot ({\x}, {4*(\x-0.5)});
+            \draw[domain=0.75:1, smooth, variable=\x, blue]  plot ({\x}, {4*(1-\x)});
+            \node at (0.5, 1.5) {\(g_2\)};
+            \draw (1, -0.05) node [below] {\(1\)} -- (1, 0.05);
+            \draw (-0.05, 1) node [left] {\(1\)} -- (0.05, 1);
+            \draw (0, 0) node [below left] {\(0\)};
+        \end{tikzpicture} \qquad
         \begin{tikzpicture}[scale=2]
-           \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
-           \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
-           \draw[domain=0:0.125, smooth, variable=\x, blue] plot ({\x}, {8*\x});
-           \draw[domain=0.125:0.25, smooth, variable=\x, blue]  plot ({\x}, {8*(0.25-\x)});
-           \draw[domain=0.25:0.375, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.25)});
-           \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
-           \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
-           \draw[domain=0.5:0.625, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.5)});
-           \draw[domain=0.625:0.75, smooth, variable=\x, blue]  plot ({\x}, {8*(0.75-\x)});
-           \draw[domain=0.75:0.875, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.75)});
-           \draw[domain=0.875:1, smooth, variable=\x, blue]  plot ({\x}, {8*(1-\x)});
-           \node at (0.5, 1.5) {\(g_3\)};
+            \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+            \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+            \draw[domain=0:0.125, smooth, variable=\x, blue] plot ({\x}, {8*\x});
+            \draw[domain=0.125:0.25, smooth, variable=\x, blue]  plot ({\x}, {8*(0.25-\x)});
+            \draw[domain=0.25:0.375, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.25)});
+            \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
+            \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
+            \draw[domain=0.5:0.625, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.5)});
+            \draw[domain=0.625:0.75, smooth, variable=\x, blue]  plot ({\x}, {8*(0.75-\x)});
+            \draw[domain=0.75:0.875, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.75)});
+            \draw[domain=0.875:1, smooth, variable=\x, blue]  plot ({\x}, {8*(1-\x)});
+            \node at (0.5, 1.5) {\(g_3\)};
+            \draw (1, -0.05) node [below] {\(1\)} -- (1, 0.05);
+            \draw (-0.05, 1) node [left] {\(1\)} -- (0.05, 1);
+            \draw (0, 0) node [below left] {\(0\)};
         \end{tikzpicture}
-        \end{center}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Eigenschaften von \(g_s\)}
