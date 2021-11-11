@@ -132,12 +132,44 @@
 
 \begin{definition}[Sawtooth Konstruktion]
 	\[g(x) \coloneqq 2\rho(x) - 4 \rho(x - \frac{1}{2}) + 2\rho(x-1) = \begin{cases}
-        2x, & 0\leq x < 1, \\ 
-        2(1-x), & \frac{1}{2} \leq x \leq \frac{1}{2}, \\
+        2x, & 0\leq x < \frac{1}{2}, \\ 
+        2(1-x), & \frac{1}{2} \leq x \leq 1, \\
         0, & \text{sonst.}
     \end{cases}\]
     \[g_s \coloneqq \underbrace{g \circ \cdots \circ g}_s \]
 \end{definition}
+\begin{center}
+	\begin{tikzpicture}[scale=2]
+	   \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+	   \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+	   \draw[domain=0:0.5, smooth, variable=\x, blue] plot ({\x}, {2*\x});
+	   \draw[domain=0.5:1, smooth, variable=\x, blue]  plot ({\x}, {2*(1-\x)});
+	   \node at (0.5, 1.5) {\(g_1\)};
+	\end{tikzpicture}
+	\begin{tikzpicture}[scale=2]
+	   \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+	   \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+	   \draw[domain=0:0.25, smooth, variable=\x, blue] plot ({\x}, {4*\x});
+	   \draw[domain=0.25:0.5, smooth, variable=\x, blue]  plot ({\x}, {4*(0.5-\x)});
+	   \draw[domain=0.5:0.75, smooth, variable=\x, blue]  plot ({\x}, {4*(\x-0.5)});
+	   \draw[domain=0.75:1, smooth, variable=\x, blue]  plot ({\x}, {4*(1-\x)});
+	   \node at (0.5, 1.5) {\(g_2\)};
+	\end{tikzpicture}
+	\begin{tikzpicture}[scale=2]
+	   \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
+	   \draw[->] (0, -0.25) -- (0, 1.25) node[above] {$y$};
+	   \draw[domain=0:0.125, smooth, variable=\x, blue] plot ({\x}, {8*\x});
+	   \draw[domain=0.125:0.25, smooth, variable=\x, blue]  plot ({\x}, {8*(0.25-\x)});
+	   \draw[domain=0.25:0.375, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.25)});
+	   \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
+	   \draw[domain=0.375:0.5, smooth, variable=\x, blue]  plot ({\x}, {8*(0.5-\x)});
+	   \draw[domain=0.5:0.625, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.5)});
+	   \draw[domain=0.625:0.75, smooth, variable=\x, blue]  plot ({\x}, {8*(0.75-\x)});
+	   \draw[domain=0.75:0.875, smooth, variable=\x, blue]  plot ({\x}, {8*(\x-0.75)});
+	   \draw[domain=0.875:1, smooth, variable=\x, blue]  plot ({\x}, {8*(1-\x)});
+	   \node at (0.5, 1.5) {\(g_3\)};
+	\end{tikzpicture}
+\end{center}
 
 \begin{lemma}
 	Sei \(s\in\N\), \(k \in \set{0,1,\ldots, 2^{s-1}-1}\). Dann gilt \(g(2^{s-1} \cdot - k)\) 
@@ -174,12 +206,6 @@
 	\[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
 \end{proposition}
 
-\begin{theorem}[Weierstrass Approximation Theorem] % iii.6
-	Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
-	Polynom \(\pi\), sodass 
-	\[ ||f - \pi ||_{L^\infty([a,b])} \leq \varepsilon. \]
-\end{theorem}
-
 \begin{lemma} % iii.7
 	Betrachte die Menge der Funktionen 
 	\[ \mathcal{S}_{[-1,1]} \coloneqq \left\{ f \in C^\infty([-1,1], \R): ||f^{(n)}||_{L^\infty([-1,1])} \leq n! \;\forall n \in \N_0 \right\}. \]
@@ -198,15 +224,6 @@
 	\(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
 	\[ ||\Psia - \cos(a x) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
 \end{theorem}
-
-\begin{corollary} % iii.9
-	\newcommand{\Psia}{\Psi_{a,b,D,\varepsilon}}
-	Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(b\in \R\), \(\varepsilon \in (0,1/2)\) 
-	ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
-	\(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
-	\(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
-	\[ ||\Psia - \cos(a x - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
-\end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Content ends here
