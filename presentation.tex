@@ -47,6 +47,7 @@
 \newcommand{\Z}{\mathbb{Z}} % blackboard bold Z for integers
 
 \newcommand{\set}[1]{\{#1\}}
+\newcommand{\norm}[1]{\|#1\|}
 
 \begin{document}
 
@@ -84,7 +85,7 @@
             sowie Bias Vektoren \(b_1, \ldots, b_L\),
             \item[Tiefe] \(\mathcal{L}(\Phi) := L\),
             \item[Breite] \(\mathcal{W}(\Phi) := \max_{l=0,\ldots, L} N_l\),
-            \item[Gewicht] \(\mathcal{B}(\Phi) := \max_{l=1,\ldots, L} \max\set{||A_l ||_\infty, ||b_l||_\infty}\).
+            \item[Gewicht] \(\mathcal{B}(\Phi) := \max_{l=1,\ldots, L} \max\set{\norm{A_l}_\infty, \norm{b_l}_\infty}\).
         \end{description}
     \end{definition}
 \end{frame}
@@ -96,7 +97,7 @@
         \(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
         \max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
         sowie
-        \[ \Psi(x) = (\Phi_2 \circ \Phi_1)(x) = \Phi_2(\Phi_1(x)) \;\forall x\in \R^{d_1}. \]
+        \[ \Psi(x) = (\Phi_2 \circ \Phi_1)(x) = \Phi_2(\Phi_1(x)) \ \ \forall x\in \R^{d_1}. \]
     \end{lemma}
 \end{frame}
 
@@ -174,12 +175,13 @@
 
 \begin{frame}{Aneinanderkettung von ReLU Netzwerken}
     \begin{lemma}
-        Sei \(n, L \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i, d_i' \in \N\) und \(\Phi_i \in \mathcal{N}_{d_i, d_i'}\) 
-        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, \sum_{i=1}^n d_i'}\) 
+        Sei \(n, L \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i, d_i' \in \N\), \(\sum_{i=1}^n d_i = d\), \(\sum_{i=1}^n d_i' = d'\) 
+        und \(\Phi_i \in \mathcal{N}_{d_i, d_i'}\) 
+        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{d, d'}\) 
         mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) = \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
         \(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \mathcal{B}(\Phi_i)\) sowie 
-        \[ \Psi(x) = (\Phi_1(x_1), \ldots, \Phi_n(x_n)) \in \R^{\sum_{i=1}^n d_i'} \]
-        für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+        \[ \Psi(x) = (\Phi_1(x_1), \ldots, \Phi_n(x_n)) \in \R^{d'} \]
+        für \(x = (x_1, \ldots, x_n) \in \R^{d}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
     \end{lemma}
 \end{frame}
 
@@ -246,12 +248,13 @@
 
 \begin{frame}{Summation von ReLU Netzwerken}
     \begin{lemma}
-        Sei \(n, L, d' \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i \in \N\), \(a_i \in \R\) und \(\Phi_i \in \mathcal{N}_{d_i, d'}\) 
-        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{\sum_{i=1}^n d_i, d'}\) 
+        Sei \(n, L, d' \in\N\) und für \(i\in \set{1,\ldots, n}\) seien \(d_i \in \N\), \(\sum_{i=1}^n d_i = d\), 
+        \(a_i \in \R\) und \(\Phi_i \in \mathcal{N}_{d_i, d'}\) 
+        mit \(\mathcal{L}(\Phi_i) = L\). Dann existiert ein Netzwerk \(\Psi \in \mathcal{N}_{d, d'}\) 
         mit \(\mathcal{L}(\Psi) = L\), \(\mathcal{M}(\Psi) \leq \sum_{i=1}^n \mathcal{M}(\Phi_i)\), 
         \(\mathcal{W}(\Psi) = \sum_{i=1}^n \mathcal{W}(\Phi_i)\), \(\mathcal{B}(\Psi) = \max_i \set{|a_i| \mathcal{B}(\Phi_i)}\) sowie 
         \[ \Psi(x) = \sum_{i=1}^n a_i \Phi_i(x_i) \in \R^{d'} \]
-        für \(x = (x_1, \ldots, x_n) \in \R^{\sum_{i=1}^n d_i}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
+        für \(x = (x_1, \ldots, x_n) \in \R^{d}\) mit \(x_i \in \R^{d_i}\), \(i\in \set{1,\ldots, n}\).
     \end{lemma}
 \end{frame}
 
@@ -387,7 +390,7 @@
         \(\mathcal{L}(\Phi_\varepsilon) \leq C\log(\varepsilon^{-1})\), 
         \(\mathcal{W}(\Phi_\varepsilon) = 3\), \(\mathcal{B}(\Phi_\varepsilon) = 1\), 
         \(\Phi_\varepsilon(0) = 0\) existiert mit 
-        \[ ||\Phi_\varepsilon(x) - x^2 ||_{L^\infty([0,1])} \leq \varepsilon. \]
+        \[ \norm{\Phi_\varepsilon(x) - x^2 }_{L^\infty([0,1])} \leq \varepsilon. \]
     \end{proposition}
 \end{frame}
 
@@ -400,7 +403,7 @@
         \(\mathcal{L}(\Phi_{D, \varepsilon}) \leq C (\log(\lceil D \rceil) + \log(\varepsilon^{-1})) \), 
         \(\mathcal{W}(\Phi_{D, \varepsilon}) \leq 5\), \(\mathcal{B}(\Phi_{D, \varepsilon}) = 1\) sowie 
         \(\Phi_{D,\varepsilon}(0,x) = \Phi_{D,\varepsilon}(x,0) = 0 \;\forall x\in \R\) und 
-        \[ ||\Phi_{D,\varepsilon}(x,y) - xy||_{L^\infty([-D,D]^2)} \leq \varepsilon. \]
+        \[ \norm{\Phi_{D,\varepsilon}(x,y) - xy}_{L^\infty([-D,D]^2)} \leq \varepsilon. \]
     \end{proposition}
 \end{frame}
 
@@ -442,9 +445,9 @@
         \newcommand{\Phia}{\Phi_{a,D,\varepsilon}}
         Es existiert eine Konstante \(C>0\), sodass für alle \(m\in \N\), \(a = (a_i)_{i=0}^m \in \R^{m+1}\), 
         \(D\in \R_+\) und \(\varepsilon \in (0,1/2)\) ein Netzwerk \(\Phia \in \mathcal{N}_{1,1}\) 
-        existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil ||a||_\infty \rceil))\), 
+        existiert mit \(\mathcal{L}(\Phia) \leq C m (\log(\varepsilon^{-1}) + m\log(\lceil D \rceil) + \log(m) + \log(\lceil \norm{a}_\infty \rceil))\), 
         \(\mathcal{W}(\Phia) \leq 9\), \(\mathcal{B}(\Phia) \leq 1\) sowie 
-        \[ \left|\left|\Phia(x) - \sum_{i=0}^m a_i x^i \right|\right|_{L^\infty([-D,D])} \leq \varepsilon. \]
+        \[ \left\|\Phia(x) - \sum_{i=0}^m a_i x^i \right\|_{L^\infty([-D,D])} \leq \varepsilon. \]
     \end{proposition}
 \end{frame}
 
@@ -454,20 +457,20 @@
     \begin{theorem}[Weierstrass Approximation Theorem] % iii.6
         Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
         Polynom \(\pi\), sodass 
-        \[ ||f - \pi ||_{L^\infty([a,b])} \leq \varepsilon. \]
+        \[ \norm{f - \pi }_{L^\infty([a,b])} \leq \varepsilon. \]
     \end{theorem}
 \end{frame}
 
 \begin{frame}{Glatte Funktionen}
     \begin{lemma} % iii.7
         Betrachte die Menge der Funktionen 
-        \[ \mathcal{S}_{[-1,1]} \coloneqq \left\{ f \in C^\infty([-1,1], \R): ||f^{(n)}||_{L^\infty([-1,1])} \leq n! \;\forall n \in \N_0 \right\}. \]
+        \[ \mathcal{S}_{[-1,1]} \coloneqq \left\{ f \in C^\infty([-1,1], \R): \norm{f^{(n)}}_{L^\infty([-1,1])} \leq n! \;\forall n \in \N_0 \right\}. \]
         Dann existiert eine Konstante \(C>0\), sodass für alle \(f\in \mathcal{S}_{[-1,1]}\) und \(\varepsilon\in (0,1/2)\) 
         ein Netz \(\Psi_{f,\varepsilon} \in \mathcal{N}_{1,1}\) existiert mit 
         \( \mathcal{L}(\Psi_{f,\varepsilon}) \leq C(\log(\varepsilon^{-1}))^2 \), 
         \(\mathcal{W}(\Psi_{f,\varepsilon}) \leq 9\), \(\mathcal{B}(\Psi_{f,\varepsilon}) \leq 1\) 
         sowie 
-        \[ ||\Psi_{f,\varepsilon} - f||_{L^\infty([-1,1])} \leq \varepsilon. \]
+        \[ \norm{\Psi_{f,\varepsilon} - f}_{L^\infty([-1,1])} \leq \varepsilon. \]
     \end{lemma}
 \end{frame}
 
@@ -479,7 +482,7 @@
         Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(\varepsilon \in (0,1/2)\) 
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1}\) mit \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil aD\rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
-        \[ ||\Psia - \cos(a x) ||_{L^{\infty}([-D,D])} \leq \varepsilon. \]
+        \[ \norm{\Psia - \cos(a x) }_{L^{\infty}([-D,D])} \leq \varepsilon. \]
     \end{theorem}
 \end{frame}
 
@@ -490,7 +493,7 @@
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
         \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
-        \[ ||\Psia - \cos(a x - b) ||_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
+        \[ \norm{\Psia - \cos(a x - b) }_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
     \end{corollary}
 \end{frame}
 
