@@ -25,22 +25,26 @@
 \usepackage{graphicx} % to include graphics with \includegraphics[options]{imagefile}
 \definecolor{lightblue}{RGB}{189,216,238}
 
-% \theoremstyle{plain} % Usual style for theorems, etc.
-% 
-% % All numbered with the same counter (theorem).
-% % \newtheorem{theorem}{Theorem}[section] % This uses numbering SECTION.COUNT instead of COUNT. Useful in longer documents.
-% \newtheorem{theorem}{Theorem} % Number linearly (no SECTION prefix).
-% % Usage: \newtheorem{environmentname}[counter]{displayedtext}
+\theoremstyle{plain} % Usual style for theorems, etc.
+
+\setbeamertemplate{theorems}[numbered]
+
+% All numbered with the same counter (theorem).
+%\newtheorem{theorem}{Theorem}[section] % This uses numbering SECTION.COUNT instead of COUNT. Useful in longer documents.
+%\newtheorem{theorem}{Satz} % Number linearly (no SECTION prefix).
+% Usage: \newtheorem{environmentname}[counter]{displayedtext}
 \newtheorem{proposition}[theorem]{Proposition}
 % \newtheorem{lemma}[theorem]{Lemma}
-% \newtheorem{corollary}[theorem]{Corollary}
-% \newtheorem*{lemma*}{Lemma} % not numbered.
-% 
+\newtheorem{satz}[theorem]{Satz}
+\newtheorem{korollar}[theorem]{Korollar}
+\newtheorem*{lemma*}{Lemma} % not numbered.
+\newtheorem*{satz*}{Satz} % not numbered.
+
 % \theoremstyle{definition} % Usual style definitions.
 % \newtheorem{definition}[theorem]{Definition}
-% 
-% \theoremstyle{remark} % Usual style definitions.
-% \newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{remark} % Usual style definitions.
+\newtheorem{remark}[theorem]{Remark}
 
 \newcommand{\N}{\mathbb{N}} % blackboard bold N for natural numbers
 \newcommand{\R}{\mathbb{R}} % blackboard bold R for real numbers
@@ -92,7 +96,7 @@
 
 \begin{frame}{Komposition von ReLU Netzwerken}
     \begin{lemma}
-        Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\). Dann existiert ein 
+        Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\), \(\Phi_2 \in \mathcal{N}_{d_2, d_3}\). Dann existiert ein 
         Netzwerk \(\Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
         \(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
         \max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
@@ -394,6 +398,11 @@
     \end{proposition}
 \end{frame}
 
+\begin{frame}{Quadrierfunktion}
+    \centering
+    \includegraphics[height=0.9\textheight]{images/approximation-proposition-6.png}
+\end{frame}
+
 \subsection{Multiplikationsfunktion}
 
 \begin{frame}{Multiplikationsfunktion}
@@ -453,12 +462,12 @@
 
 \subsection{Glatte Funktionen}
 
-\begin{frame}{Weierstrass Approximation Theorem}
-    \begin{theorem}[Weierstrass Approximation Theorem] % iii.6
+\begin{frame}{Approximationssatz von Weierstrass}
+    \begin{satz*}[Approximationssatz von Weierstrass] % iii.6
         Sei \([a,b] \subset \R\) und \(f\in C([a,b])\). Dann existiert für jedes \(\varepsilon > 0\) ein 
         Polynom \(\pi\), sodass 
         \[ \norm{f - \pi }_{L^\infty([a,b])} \leq \varepsilon. \]
-    \end{theorem}
+    \end{satz*}
 \end{frame}
 
 \begin{frame}{Glatte Funktionen}
@@ -477,24 +486,24 @@
 \subsection{Trigonometrische Funktionen}
 
 \begin{frame}{Trigonometrische Funktionen}
-    \begin{theorem} % iii.8
+    \begin{satz} % iii.8
         \newcommand{\Psia}{\Psi_{a,D,\varepsilon}}
         Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(\varepsilon \in (0,1/2)\) 
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1}\) mit \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil aD\rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
         \[ \norm{\Psia - \cos(a x) }_{L^{\infty}([-D,D])} \leq \varepsilon. \]
-    \end{theorem}
+    \end{satz}
 \end{frame}
 
 \begin{frame}{Trigonometrische Funktionen}
-    \begin{corollary} % iii.9
+    \begin{korollar} % iii.9
         \newcommand{\Psia}{\Psi_{a,b,D,\varepsilon}}
         Es existiert eine Konstante \(C>0\), sodass für alle \(a,D\in \R_+\), \(b\in \R\), \(\varepsilon \in (0,1/2)\) 
         ein Netzwerk \(\Psia \in \mathcal{N}_{1,1} \) mit 
         \(\mathcal{L}(\Psia) \leq C((\log(\varepsilon^{-1}))^2 + \log(\lceil a D + |b| \rceil))\), 
         \(\mathcal{W}(\Psia) \leq 9\), \(\mathcal{B}(\Psia) \leq 1\) sowie 
         \[ \norm{\Psia - \cos(a x - b) }_{L^\infty([-D,D])} \leq \varepsilon \text{ existiert}. \]
-    \end{corollary}
+    \end{korollar}
 \end{frame}
 
 \begin{frame}{Abschluss} % iii.10

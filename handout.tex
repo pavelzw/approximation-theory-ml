@@ -87,7 +87,7 @@
     \end{cases} \]
     gegeben ist. Hierbei ist für \(l\in \set{1,\ldots, L}\) \(W_l : \R^{N_{l-1}} \rightarrow \R^{N_l}, W_l(x) = A_l x + b_l\) 
     die jeweilige affine Transformation und \(\rho: \R \rightarrow \R\), \(\rho(x) := \max\set{0, x}\) 
-    die ReLU-Funktion (komponentenweise).
+    die ReLU-Funktion.
     Die Menge aller ReLU Netzwerke mit Input-Dimension \(N_0 = d\) und Output-Dimension \(N_L = d'\) 
     definieren wir als \(\mathcal{N}_{d,d'}\).
 \end{definition}
@@ -103,7 +103,7 @@
 \end{definition}
 
 \begin{lemma}
-    Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\). Dann existiert ein 
+    Seien \(d_1\), \(d_2\), \(d_3 \in \N\), \(\Phi_1 \in \mathcal{N}_{d_1, d_2}\), \(\Phi_2 \in \mathcal{N}_{d_2, d_3}\). Dann existiert ein 
     Netzwerk \(\Psi \in \mathcal{N}_{d_1, d_3}\) mit \(\mathcal{L}(\Psi) = \mathcal{L}(\Phi_1) + \mathcal{L}(\Phi_2)\), 
     \(\mathcal{M}(\Psi) \leq 2 \mathcal{M}(\Phi_1) + 2\mathcal{M}(\Phi_2)\), \(\mathcal{W}(\Psi) \leq 
     \max\set{2d_2, \mathcal{W}(\Phi_1), \mathcal{W}(\Phi_2)}\), \(\mathcal{B}(\Psi) = \max\set{\mathcal{B}(\Phi_1), \mathcal{B}(\Phi_2)}\) 
@@ -132,14 +132,14 @@
 
 \section{Approximationstheorie}
 
-\begin{definition}[Sawtooth Konstruktion]
+\begin{definition*}[Sawtooth Konstruktion]
     \[g(x) \coloneqq 2\rho(x) - 4 \rho\left(x - \frac{1}{2}\right) + 2\rho(x-1) = \begin{cases}
         2x, & 0\leq x < \frac{1}{2}, \\ 
         2(1-x), & \frac{1}{2} \leq x \leq 1, \\
         0, & \text{sonst.}
     \end{cases}\]
     \[g_s \coloneqq \underbrace{g \circ \cdots \circ g}_s \]
-\end{definition}
+\end{definition*}
 \begin{center}
     \begin{tikzpicture}[scale=2]
         \draw[->] (-0.25, 0) -- (1.25, 0) node[right] {$x$};
@@ -182,13 +182,13 @@
     \end{tikzpicture}
 \end{center}
 
-\begin{lemma}
+\begin{lemma*}
     Sei \(s\in\N\), \(k \in \set{0,1,\ldots, 2^{s-1}-1}\). Dann gilt \(x \mapsto g(2^{s-1} x - k)\) 
     hat Träger \(\left[\frac{k}{2^{s-1}}, \frac{k+1}{2^{s-1}} \right]\), weiter gilt 
     \[ g_s(x) = \sum_{k=0}^{2^{s-1}-1} g(2^{s-1}x - k),\ \ x\in [0,1] \]
     sowie 
     \[ g_s\left(\frac{k}{2^{s-1}}+x\right) = g_s\left(\frac{k+1}{2^{2-1}} - x\right), \ \ x \in \left[0, \frac{1}{2^{s-1}}\right]. \]
-\end{lemma}
+\end{lemma*}
 
 \begin{proposition} % iii.2
     Es existiert eine Konstante \(C>0\), sodass für alle \(\varepsilon \in (0,1/2)\) 
