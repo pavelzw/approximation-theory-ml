@@ -72,17 +72,8 @@ Sei \(s_k(x) \coloneqq 2^{-1}\rho(x) - \rho(x - 2^{-2k-1})\).
 \textit{Nun können wir jede dieser \(H_k\) Summen durch eine Netz Ebene approximieren 
 und kommen so auf einen Fehler, der exponentiell schrumpft in der Netzwerklänge.}
 
-\textit{Evtl. überspringen?}
-
-Es gilt \(H_k = s_k \circ H_{k-1}\). Wir können ein Netzwerk \(x - I_m(x)\) wie folgt definieren: 
-\(A_1 \coloneqq (1, 1, 1)^T \in \R^{3\times 1}, b_1 \coloneqq (0, -2^{-1}, 0)^T \in \R^3 \),
-\[ A_l \coloneqq \begin{pmatrix}
-    2^{-1} & -1 & 0 \\ 2^{-1} & -1 & 0 \\ -2^{-1} & 1 & 1
-\end{pmatrix} \in \R^{3 \times 3}, b_l \coloneqq \begin{pmatrix}
-    0 \\ -2^{-2l + 1} \\ 0
-\end{pmatrix} \in \R^3 \]
-sowie 
-\(A_{m+1} \coloneqq (-2^{-1}, 1, 1) \in \R^{1 \times 3}, b_{m+1} = 0\).
+Es gilt \(H_0 = s_0\) sowie \(H_k = s_k \circ H_{k-1}\). Wir können ein Netzwerk \(x - I_m(x)\) wie folgt definieren: 
+\textit{verweise auf Beamer}
 
 Setzen wir \(W_l(x) \coloneqq A_l x + b_l\) und 
 \[ \tilde{\Phi}_m \coloneqq W_{m+1} \circ \rho \circ W_m \circ \cdots \circ \rho \circ W_1, \]
@@ -124,6 +115,10 @@ Nun folgt
 Setze nun \(\Psi_D(x) = D^2 x\) und wähle 
 \(\Phi_{D,\varepsilon} \coloneqq \Psi_D \circ \tilde{\Psi}_{m(D,\varepsilon)} \), 
 wobei \(m(D, \varepsilon) \coloneqq \lceil 2^{-1}(1+\log(D^2 \varepsilon^{-1})) \rceil \).
+
+\textit{Ein Netzwerk \(\Psi_D(x)\) existiert mit \(\mathcal{L}(\Psi_D) \leq \lfloor \log(D^2)\rfloor + 4\), \(\mathcal{W}(\Psi_D) \leq 3\), 
+\(\mathcal{B}(\Psi_D) \leq 1\).}
+
 Dann folgt die Fehlerabschätzung aus \((**)\) und die geforderten Beschränkungen an 
 die Breite, Länge und das Gewicht folgen aus der Konstruktion des Netzes zusammen mit Proposition 6.
 
@@ -170,7 +165,7 @@ mit \(\mathcal{L}(\Phi_\varepsilon) \leq C \log(\varepsilon^{-1})^2, \mathcal{W}
 \[ ||\Phi_\varepsilon - f ||_{L^{\infty}([-1,1])} \leq \frac{6}{\pi^3} \varepsilon. \tag{\(*\)} \]
 
 \textit{Wir erweitern dieses Resultat jetzt für die Approximatino von \(\cos(ax)\) auf \([-1,1]\) für beliebiges \(a\in \R_+\). 
-Das bekommen wir hin, indem wir ausnutzen, dass \(\cos(\pi x))\) \(2\)-periodisch und gerade ist.}
+Das bekommen wir hin, indem wir ausnutzen, dass \(\cos(\pi x)\) \(2\)-periodisch und gerade ist.}
 
 Sei \(g_s:[0,1] \rightarrow [0,1]\) die Sawtooth Funktion der Ordnung \(s\) und aufgrund der Periodizität und Symmetrie der Cosinus Funktion gilt 
 \[ \cos(\pi 2^s x) = \cos(\pi g_s(|x|)). \]
